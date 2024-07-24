@@ -13,6 +13,10 @@ You can play the game [here](https://sonir746.github.io/Simon-Game/).
 - JavaScript
 - jQuery
 
+## Compatibility
+
+This website is designed for PC use only.
+
 ## Files
 
 1. **index.html** - This file contains the HTML structure of the game.
@@ -99,6 +103,7 @@ body {
 
 .blue {
   background-color: blue;
+}
 
 .yellow {
   background-color: yellow;
@@ -214,3 +219,28 @@ function wrongChoice() {
 3. Repeat the sequence by clicking the buttons in the correct order.
 4. The game will continue with a longer sequence each round.
 5. If you make a mistake, the game will end and you can restart by pressing any key.
+
+
+## Auther
+
+👨🏻‍💼RAHUL SONI
+
+[![linkedin](https://img.shields.io/twitter/url?url=https%3A%2F%2Fwww.linkedin.com&style=social&logo=Linkedin&logoColor=White&label=Linkedin&labelColor=blue&color=blue&cacheSeconds=3600
+)](https://www.linkedin.com/in/rahul-soni-004861227)
+[![GitHub](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2F&style=social&logo=GitHub&logoColor=Black&label=GitHub&labelColor=abcdef&color=fedcba&cacheSeconds=3600
+)](https://github.com/sonir746)
+
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at rahulsoni@gmail.com
+
+Or
+
+Report any issue here
+<br>
+👇👇👇
+<br>
+[![GitHub](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com&style=social&logo=GitHub&label=issue&labelColor=grey&color=grey
+)](https://github.com/sonir746/Simon-Game/issues)
