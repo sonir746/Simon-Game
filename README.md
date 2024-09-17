@@ -19,15 +19,15 @@ This website is designed for PC use only.
 
 ## Files
 
-1. **index.html** - This file contains the HTML structure of the game.
-2. **styles.css** - This file contains the CSS styling for the game.
-3. **game.js** - This file contains the JavaScript logic for the game.
+1. **index.html** - Contains the HTML structure of the game.
+2. **styles.css** - Provides the CSS styling for the game.
+3. **game.js** - Contains the JavaScript logic for the game.
 
 ## Description
 
 ### index.html
 
-This file sets up the basic structure of the game, including the heading and the four colored buttons that make up the game board. It also links to the external CSS and JavaScript files.
+Sets up the basic structure of the game, including the heading and the four colored buttons. Links to the external CSS and JavaScript files.
 
 ```html
 <!DOCTYPE html>
@@ -39,7 +39,10 @@ This file sets up the basic structure of the game, including the heading and the
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
-  <h1 id="level-title">Press A Key to Start</h1>
+  <h1 id="level-title">Press the Start Button</h1>
+  <div>
+    <button class="button-29" role="button">Start</button>
+  </div>
   <div class="container">
     <div class="row">
       <div type="button" id="green" class="btn green"></div>
@@ -58,19 +61,19 @@ This file sets up the basic structure of the game, including the heading and the
 
 ### styles.css
 
-This file provides the styling for the game elements, including the layout, colors, and animations.
+Provides styling for game elements, including layout, colors, and animations.
 
 ```css
 body {
   text-align: center;
-  background-color: #011F3F;
+  background-color: #011f3f;
 }
 
 #level-title {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 3rem;
-  margin:  5%;
-  color: #FEF2BF;
+  margin: 5%;
+  color: #fef2bf;
 }
 
 .container {
@@ -86,6 +89,38 @@ body {
   width: 200px;
   border: 10px solid black;
   border-radius: 20%;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.button-29 {
+  align-items: center;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.button-29:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-29:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 .game-over {
@@ -93,21 +128,10 @@ body {
   opacity: 0.8;
 }
 
-.red {
-  background-color: red;
-}
-
-.green {
-  background-color: green;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.yellow {
-  background-color: yellow;
-}
+.red { background-color: red; }
+.green { background-color: green; }
+.blue { background-color: blue; }
+.yellow { background-color: yellow; }
 
 .pressed {
   box-shadow: 0 0 20px white;
@@ -117,7 +141,7 @@ body {
 
 ### game.js
 
-This file contains the game logic, including generating random sequences, handling user input, and checking the user's sequence against the generated sequence.
+Contains the game logic, including generating sequences, handling user input, and checking sequences.
 
 ```javascript
 var buttonColours = ["red", "blue", "green", "yellow"];
@@ -126,17 +150,16 @@ var level = "Level ";
 var num = 1;
 
 function nextSequence() {
-    const randomNumber = Math.floor((Math.random() * (4 - 0)) + 0);
+    const randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColours[randomNumber];
 
     gamePattern.push(randomChosenColour);
-
     flash("#" + randomChosenColour);
     playSound(randomChosenColour);
 
     $("h1").text(level + num);
-    num++
-    return gamePattern
+    num++;
+    return gamePattern;
 }
 
 var started = true;
@@ -148,9 +171,16 @@ $(document).keypress(function () {
     }
 });
 
+$(".button-29").click(() => {
+    if (started) {
+        started = false;
+        nextSequence();
+    }
+});
+
 $(".btn").click(function () {
     if (!started) {
-        handler(this)
+        handler(this);
     }
 });
 
@@ -162,15 +192,12 @@ function playSound(name) {
 }
 
 function flash(button) {
-    $(button).animate({ opacity: "0.2" }, 200);
-    $(button).animate({ opacity: "1" });
+    $(button).animate({ opacity: "0.2" }, 200).animate({ opacity: "1" });
 }
 
 function animatePress(currentColour) {
     $("#" + currentColour).addClass("pressed");
-    setTimeout(function () {
-        $("#" + currentColour).removeClass("pressed");
-    }, 100);
+    setTimeout(() => $("#" + currentColour).removeClass("pressed"), 100);
 }
 
 var checkAnswerCount = 0;
@@ -182,18 +209,15 @@ function handler(x) {
     userClickedPattern.push(userChosenColour);
 
     if (userClickedPattern[checkAnswerCount] === gamePattern[checkAnswerCount]) {
-        checkAnswerCount++
+        checkAnswerCount++;
         if (userClickedPattern.length === gamePattern.length) {
             userClickedPattern = [];
-            setTimeout(function () {
-                nextSequence()
-            }, 1000)
+            setTimeout(() => nextSequence(), 1000);
             checkAnswerCount = 0;
         }
     } else {
-        startOver()
-        checkAnswerCount = 0;
-        wrongChoice()
+        startOver();
+        wrongChoice();
     }
 }
 
@@ -206,8 +230,8 @@ function startOver() {
 
 function wrongChoice() {
     $("body").addClass("game-over");
-    setTimeout(function () { $("body").removeClass("game-over"); }, 200);
-    $("h1").text("Game Over, Press Any Key to Restart");
+    setTimeout(() => $("body").removeClass("game-over"), 200);
+    $("h1").text("Game Over! Press Start Button to Restart");
     playSound("wrong");
 }
 ```
@@ -220,27 +244,14 @@ function wrongChoice() {
 4. The game will continue with a longer sequence each round.
 5. If you make a mistake, the game will end and you can restart by pressing any key.
 
+## Author
 
-## Auther
+👨🏻‍💼 Rahul Soni
 
-👨🏻‍💼RAHUL SONI
-
-[![linkedin](https://img.shields.io/twitter/url?url=https%3A%2F%2Fwww.linkedin.com&style=social&logo=Linkedin&logoColor=White&label=Linkedin&labelColor=blue&color=blue&cacheSeconds=3600
-)](https://www.linkedin.com/in/rahul-soni-004861227)
-[![GitHub](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2F&style=social&logo=GitHub&logoColor=Black&label=GitHub&labelColor=abcdef&color=fedcba&cacheSeconds=3600
-)](https://github.com/sonir746)
-
-
+[![LinkedIn](https://img.shields.io/twitter/url?url=https%3A%2F%2Fwww.linkedin.com&style=social&logo=Linkedin&logoColor=White&label=LinkedIn&labelColor=blue&color=blue&cacheSeconds=3600)](https://www.linkedin.com/in/rahul-soni-004861227)
+[![GitHub](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2F&style=social&logo=GitHub&logoColor=Black&label=GitHub&labelColor=abcdef&color=fedcba&cacheSeconds=3600)](https://github.com/sonir746)
 
 ## Feedback
 
-If you have any feedback, please reach out to us at rahulsoni@gmail.com
+If you have any feedback, please reach out to me at rahulsoni@gmail.com or report any issues [here](https://github.com/sonir746/Simon-Game/issues).
 
-Or
-
-Report any issue here
-<br>
-👇👇👇
-<br>
-[![GitHub](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com&style=social&logo=GitHub&label=issue&labelColor=grey&color=grey
-)](https://github.com/sonir746/Simon-Game/issues)
