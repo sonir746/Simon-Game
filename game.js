@@ -20,8 +20,6 @@ function nextSequence() {
     console.log("gamePattern => " + gamePattern);
     return gamePattern
 
-
-
 }
 
 
@@ -34,7 +32,12 @@ $(document).keypress(function () {
     }
 });
 
-
+$(".button-29").click( (e) => { 
+    if (started) {
+        started = false;
+        nextSequence();
+    }
+});
 
 $(".btn").click(function () {
     if (!started) {
@@ -106,26 +109,6 @@ function handler(x) {
 
 }
 
-
-
-// function checkAnswer() {
-
-
-//     for (var i = 0; i < gamePattern.length; i++) {
-
-//         if (gamePattern[i] === userClickedPattern[i]) {
-//             console.log("sucess")
-//         } else {
-//             startOver()
-//             wrongChoice()
-//             return false;
-//         }
-
-//     } return true;
-
-
-// }
-
 function startOver() {
     num = 1
     gamePattern = []
@@ -136,6 +119,6 @@ function startOver() {
 function wrongChoice() {
     $("body").addClass("game-over");
     setTimeout(function () { $("body").removeClass("game-over"); }, 200)
-    $("h1").text("Game Over, Press Any Key to Restart");
+    $("h1").text("Game Over! Press Start Button to Restart");
     playSound("wrong")
 }
