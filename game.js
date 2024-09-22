@@ -28,7 +28,7 @@ $(document).keypress(function () {
   }
 });
 
-$(".button-29").click((e) => {
+$(".start").click((e) => {
   if (started) {
     started = false;
     nextSequence();
