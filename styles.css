@@ -103,3 +103,38 @@ body {
   box-shadow: 0 0 20px white;
   background-color: grey;
 }
+
+@media screen and (max-width: 1103px) {
+  body {
+    display: grid;
+    grid-template-rows: 1fr 0.3fr 1fr;
+    justify-items: center;
+    align-items: center;
+  }
+  #level-title {
+    font-size: 3.2rem;
+  }
+
+  .container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: 90%;
+  }
+  .btn {
+    height: 300px;
+    width: 300px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+
+  .button-29 {
+    height: 120px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 70px;
+    border-radius: 20px;
+  }
+}
