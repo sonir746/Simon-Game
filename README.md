@@ -253,5 +253,5 @@ function wrongChoice() {
 
 ## Feedback
 
-If you have any feedback, please reach out to me at rahulsoni@gmail.com or report any issues [here](https://github.com/sonir746/Simon-Game/issues).
+If you have any feedback, please reach out to me at rahulsoni7469@gmail.com or report any issues [here](https://github.com/sonir746/Simon-Game/issues).
 
