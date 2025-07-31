@@ -1,9 +1,15 @@
-export default function MainButtons() {
+import { forwardRef } from "react";
+
+
+
+
+export default forwardRef((props, ref) => {
+  const { onClick, className } = props;
   return (
     <div className="mainbutton">
-      <button className="start">
-        Start
+      <button ref={ref} onClick={onClick} className={className}>
+        {props.text}
       </button>
     </div>
   );
-}
+});

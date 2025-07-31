@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Icon from "./Icon";
 import IList from "./IList";
 
@@ -15,27 +16,31 @@ export default function Ibutton() {
       "Remember more colors each time. How far can you go?",
     ],
   ];
+   
+  const [iClicked , setIClicked] =useState(false)
 
-  const handleDisplay = () => {
-    document.querySelector(".ictnt").style.display="flex"
-  };
-  const handleClose = () => {
-    document.querySelector(".ictnt").style.display="none"
-  };
-
-  return (
-    <div className="ibutton">
-      <button onClick={handleDisplay} id="i" className="i">
-        {Icon.i}
-      </button>
+  const ctnt = () => {
+    return (
       <div className="ictnt">
-        <button onClick={handleClose} className="close">X</button>
+        <button onClick={()=>setIClicked(false)} className="close">
+          X
+        </button>
         <ul>
           {List.map((item, index) => (
             <IList key={index} heading={item[0]} text={item[1]} />
           ))}
         </ul>
       </div>
+    );
+  };
+
+  return (
+    <div className="ibutton">
+      <button onClick={()=>setIClicked(true)} id="i" className="i">
+        {Icon.i}
+      </button>
+
+      {iClicked?ctnt():null}
     </div>
   );
 }

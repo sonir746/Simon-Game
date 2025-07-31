@@ -1,11 +1,15 @@
-export default function PlayButtons(props) {
+import { forwardRef } from "react";
 
-    // console.log(props.color)
+export default forwardRef((props, ref) => {
+  const { color, onClick } = props;
+  // console.log(color)
   return (
-    <div 
-    type="button" 
-    id={props.color} 
-    className={`btn ${props.color}`}
+    <div
+      ref={ref}
+      onClick={onClick}
+      type="button"
+      id={color}
+      className={"btn " + color}
     ></div>
   );
-}
+});
