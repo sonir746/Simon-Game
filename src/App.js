@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import ColorButtons from "./components/ColorButtons";
 import Ibutton from "./components/Ibutton";
@@ -7,12 +7,13 @@ import MainText from "./components/MainText";
 
 function App() {
   const btnColor = ["green", "red", "yellow", "blue"];
-const soundsRef = useRef({
-  green: new Audio("/sounds/green.mp3"),
-  red: new Audio("/sounds/red.mp3"),
-  blue: new Audio("/sounds/blue.mp3"),
-  yellow: new Audio("/sounds/yellow.mp3"),
-});
+  const soundsRef = useRef({
+    green: new Audio("/sounds/green.mp3"),
+    red: new Audio("/sounds/red.mp3"),
+    blue: new Audio("/sounds/blue.mp3"),
+    yellow: new Audio("/sounds/yellow.mp3"),
+    wrong: new Audio("/sounds/wrong.mp3"),
+  });
 
   const gamePattern = useRef([]);
   const userPattern = useRef([]);
@@ -37,34 +38,31 @@ const soundsRef = useRef({
     if (isStart) {
       setIsStart(false);
       // setNum(1)
-      setMainBtnText("Start")
+      setMainBtnText("Start");
       nextSequence();
     }
   };
 
   const ColorClick = (e) => {
-    const color = e.target.id;
+    if (!isStart) {
+      
 
+    const color = e.target.id;
     userPattern.current.push(color);
     playSound(color);
     flash(color);
     const gameCurrent = gamePattern.current;
     const userCurrent = userPattern.current;
-
     console.log("user=>" + userCurrent + "\ngame=> " + gameCurrent);
-
     console.log(
       gameCurrent[checkAnswerCount] === userCurrent[checkAnswerCount]
     );
-
     console.log(
       gamePattern.current[checkAnswerCount],
       userPattern.current[checkAnswerCount]
     );
-
     if (gameCurrent[checkAnswerCount] === userCurrent[checkAnswerCount]) {
       checkAnswerCount++;
-
       if (userCurrent.length === gameCurrent.length) {
         userPattern.current = [];
         checkAnswerCount = 0;
@@ -78,28 +76,36 @@ const soundsRef = useRef({
       checkAnswerCount = 0;
       wrongChoice();
       setIsStart(true);
-    }
+    }    }
   };
 
   const gameOver = () => {
     setNum(1);
     gamePattern.current = [];
     userPattern.current = [];
-    setMainBtnText("ReStart")
+    setMainBtnText("ReStart");
   };
 
   const wrongChoice = () => {
     document.body.classList.add("game-over");
-    playSound("wrong")
+    playSound("wrong");
     setMainText("Game Over!\nPress Restart Button");
     setTimeout(function () {
       document.body.classList.remove("game-over");
     }, 400);
   };
   const playSound = (color) => {
+    console.log(color);
+
     const sound = soundsRef.current[color];
-    sound.currentTime = 0;
-  sound.play();
+    if (sound) {
+      // sound.currentTime = 0;
+      sound.play().catch((err) => {
+        console.error("Failed to play sound:", err);
+      });
+    } else {
+      console.error("Audio file not found:", color);
+    }
   };
 
   const flash = (color) => {
