@@ -5,6 +5,7 @@ This is a modern React-based implementation of the classic Simon Game, where pla
 ## 🔗 Live Demo
 
  👉 [Play Now](https://itsrahul-simon-game.vercel.app/).
+ > 💡 Tip: Use Ctrl+Click (or Cmd+Click) to open in a new tab.
 
 ## 🧪 Built With
 
