@@ -4,7 +4,7 @@ This is a modern React-based implementation of the classic Simon Game, where pla
 
 ## 🔗 Live Demo
 
- 👉 [Play Now](itsrahul-simon-game.vercel.app).
+ 👉 [Play Now](https://itsrahul-simon-game.vercel.app/).
 
 ## 🧪 Built With
 
